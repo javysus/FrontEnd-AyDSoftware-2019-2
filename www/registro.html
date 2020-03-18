@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <title>Nogal | Registrarse</title>
+</head>
+<body>
+    <section id="register">
+        <div class="container">
+            <div class ="row">
+                <div class="col"></div>
+                <div class="col">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <a class="navbar-brand" href="#">Nogal</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                          </button>
+                        
+                    </nav>
+                </div>
+                <div class="col"></div>
+            </div>
+
+            <div class ="row">
+                <div class="col"></div>
+                <div class="col">
+                    <form id="registerForm">
+                        <div class="form-group">
+                            <label for="nombre">Nombre de usuario</label>
+                            <input type="text" class="form-control" id="username">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Tipo de usuario</label> <!-- Si es tecnico agregar especialidad -->
+                            <select class="form-control" id="userType">
+                              <option>Cliente</option>
+                              <option>Técnico</option>
+                            </select>
+                          </div>
+                        
+                        
+                        <div class="form-group"> 
+                        <label for="contraseña">Contraseña</label>
+                        <input type="password" class="form-control" id="password">
+                        </div>
+                        <div class="row">
+                            <div class="col"></div>
+                            <div class="col">
+                                <button class="btn btn-primary">Registrarse</button>
+                            </div>
+                            <div class="col"></div>
+                        </div>
+                    </form>
+                    <p class="text-center">¿Tienes cuenta? <a href="index.html">Ingresa</a></p>
+                </div>
+                <div class="col"></div>
+            </div>
+        </div>
+    </section>
+
+    <script type="text/javascript" src = "cordova.js"></script>
+    <script type="text/javascript" src = "./js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src = "./js/bootstrap.min.js"></script>
+    <script type="text/javascript" src = "./js/Controllers/registro.js"></script>
+
+</body>
+</html>

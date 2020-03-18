@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <title>Nogal | Solicitudes por revisar</title>
+</head>
+<body>
+    <script type="text/javascript" src = "cordova.js"></script>
+    <script type="text/javascript" src = "./js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src = "./js/bootstrap.min.js"></script>
+    <script>
+     
+      $(document).ready(function(){
+
+        $("#confirm1").click(function(){
+          $("#exampleModal").on('hidden.bs.modal', function () {
+            $("#sol1").fadeOut()});
+        });
+      });
+      </script>
+    <section id="inicio">
+        <div class="container">
+          <div class ="row">
+            <div class="col"></div>
+            <div class="col">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <a class="navbar-brand" href="#">Nogal</a>
+                    
+                </nav>
+            </div>
+            <div class="col"></div>
+        </div>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <div class="card text-center" id="sol1">
+                        <div class="card-header">
+                            Asunto de solicitud
+                        </div>
+                        <div class="card-body">
+                        <h5 class="card-title">Ubicación</h5>
+                        <h6 class="card-title">Categoría</h5>
+                        <h6 class="card-title">Nombre del cliente</h5>
+                        <p>
+                            <a class="btn btn-dark" data-toggle="collapse" href="#descripcion" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Descripción
+                            </a>
+                            </p>
+                            <div class="collapse" id="descripcion">
+                            <div class="card card-body">
+                                Descripción del problema
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target=".bd-example-modal-sm">
+                            Responder</button> 
+                        </div>
+                        
+                        <div class="modal fade bd-example-modal-sm" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-sm" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Responder solicitud</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                 <form id="asignar">
+                                    <div class="form-group">
+                                        <label for="nombre">Precio</label>
+                                        <input type="number" min="0" value="10000" class="form-control" name="precio">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="example-datetime-local-input">Fecha</label>
+                                        <div class="col">
+                                          <input class="form-control" type="datetime-local" value="2020-03-27T13:45:00" id="example-datetime-local-input">
+                                        </div>
+                                    </div>
+                                    
+                                 </form>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                  <button type="button" class="btn btn-success" data-dismiss="modal" id="confirm1">Confirmar</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+                <div class="col"></div>
+
+        </div>
+    </section>
+
+</body>
+</html>
