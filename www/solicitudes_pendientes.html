@@ -6,15 +6,16 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
     <title>Nogal | Solicitudes pendientes</title>
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+        width: 100%;
+        height: 100%;
+        }
+    </style>
 </head>
 <body>
-    <script type="text/javascript" src = "cordova.js"></script>
-    <script type="text/javascript" src = "./js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src = "./js/bootstrap.min.js"></script>
-    <script>
-        $(document).ready(function(){ 
-        $('#welcome').animate({fontSize: '5em'}, "slow")});
-    </script> 
     <section id="inicio">
         <div class="container">
    
@@ -32,7 +33,7 @@
                 <div class="col"></div>
                 <div class="col">
                     
-                    <div class="card text-center">
+                    <div class="card text-center" id="sol">
                         <div class="card-header">
                             <span class="badge badge-primary">Precio</span>
                             Asunto de solicitud
@@ -40,7 +41,7 @@
                         <div class="card-body">
                         <h5 class="card-title">Fecha</h5>
                         <p>
-                            <a class="btn btn-link" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            <a class="btn btn-link" data-toggle="modal" data-target="#verMapa" href=#verMapa>
                             Ubicación
                             </a>
                         </p>
@@ -62,11 +63,11 @@
                                 Descripción del problema
                             </div>
                         </div>
-                        <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target=".bd-example-modal-sm">
+                        <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#finalizarModal">
                             Confirmar realización</button> 
                         </div>
 
-                        <div class="modal fade bd-example-modal-sm" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                        <div class="modal fade bd-example-modal-sm" id="finalizarModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-sm" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
@@ -80,17 +81,51 @@
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                  <button type="button" class="btn btn-success">Confirmar</button>
+                                  <button type="button" class="btn btn-success" data-dismiss="modal" id="confirm">Confirmar</button>
                                 </div>
                               </div>
                             </div>
                           </div>
+
+                          <div class="modal fade" id="verMapa" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+
+                                <div class="modal-header">
+                                  <h5 class="modal-title">Ubicación</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-12 modal_body_map">
+                                            <div class="location-map" id="location-map">
+                                            <div style="width: 350px; height: 400px; position: relative;" id="map"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                             </div>
+                            </div>
+                          </div>
+
+
                     </div>
                 </div>
                 <div class="col"></div>
-            <!-- Agregar paginación -->
         </div>
     </section>
+
+    <script type="text/javascript" src = "cordova.js"></script>
+    <script type="text/javascript" src = "./js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src = "./js/bootstrap.min.js"></script>
+    <script type="text/javascript" src = "./js/Controllers/solicitudes_pendientes.js"></script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNvxj43XfymqOj5lje3GZHc2HoSfo5P_4&callback=initMap">
+    </script>
 
 </body>
 </html>

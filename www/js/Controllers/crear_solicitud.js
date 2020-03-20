@@ -1,23 +1,5 @@
 var latitud;
 var longitud;
-/*function geocode(query){
-    var direccion;
-    $.ajax({
-      url: 'https://api.opencagedata.com/geocode/v1/json',
-      method: 'GET',
-      data: {
-        'key': '4b3b81ad4a894e0199e670f36dc478c7',
-        'q': query
-      },
-      dataType: 'json',
-      statusCode: {
-        200: function(response){  // success
-          direccion = response.results[0].formatted;
-          console.log(direccion);
-        }
-      }
-    });
-  }*/
 
 function initMap() {
 
@@ -46,8 +28,6 @@ function initMap() {
 
         marker.setMap(map);
         map.setCenter(pos);
-
-        /*geocode(lat + "," + lng)*/
     }, function() {
         handleLocationError(true, infoWindow, map.getCenter());
     });
@@ -67,32 +47,6 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 }
 
-/*$("#solicitudForm").submit(function(e) {
-  
-  e.preventDefault();
-  
-  $.ajax({
-      type: "POST",
-      headers: {'Authorization': 'Bearer ' + window.localStorage.getItem("token")},
-      url: "http://solicitudesnogal.herokuapp.com/v1/consulta/consulta",
-      data: JSON.stringify( {id: 1, tecnico: 2 }),
-      contentType: "application/json",
-      dataType: 'json',
-      cache: false,
-      success: function() {
-          console.log("Funo Intoxic");
-          
-      },
-
-      error: function(){
-          console.log("Ha ocurrido un error");
-          window.location.href = "./sol_error.html";
-      }
-  });
-  return false;
-})*/
-
-/*Si solicitudform se ejecuta pasara esto: Se asume que se permite la geolocalización
 $("#solicitudForm").submit(function(e) {
 
   e.preventDefault();
@@ -104,46 +58,6 @@ $("#solicitudForm").submit(function(e) {
     dataType: 'json',
     cache: false,
     success: function(id_cliente) {
-        console.log(id_cliente);
-        $.ajax({
-          type: "POST",
-          headers: {'Authorization': 'Bearer ' + window.localStorage.getItem("token")},
-          url: "https://nogal.herokuapp.com/crearsolicitud",
-          data: JSON.stringify({cliente: id_cliente, asunto: $("#asunto").val(), categoria: $("#categoria").val(), descripcion: $("#descripcion").val()
-                }),
-          contentType: "application/json",
-          dataType: "json",
-          cache: false,
-          success: function(){
-            console.log("La solicitud se ha ingresado con exito");
-          },
-
-          error: function(){
-            console.log("Ha ocurrido un error al ingresar la solicitud");
-          }
-        });
-    },
-
-    error: function(){
-      console.log("Ha ocurrido un error");
-    }
-  });
-  return false;
-});*/
-
-$("#solicitudForm").submit(function(e) {
-
-  e.preventDefault();
-
-  $.ajax({
-    type: "GET",
-    url: "https://nogal.herokuapp.com/obtenerID/"+window.localStorage.getItem("token"),
-    contentType: "application/json",
-    dataType: 'json',
-    cache: false,
-    success: function(id_cliente) {
-        console.log(id_cliente);
-
         $.ajax({
           url: 'https://api.opencagedata.com/geocode/v1/json',
           method: 'GET',
@@ -154,7 +68,6 @@ $("#solicitudForm").submit(function(e) {
           dataType: 'json',
           success: function(respuesta){
             var direccion = respuesta.results[0].formatted;
-            console.log(direccion);
 
             $.ajax({
               type: "POST",
@@ -167,12 +80,10 @@ $("#solicitudForm").submit(function(e) {
               cache: false,
               success: function(){
                 window.location.href = "./sol_enviada.html";
-                console.log("La solicitud se ha ingresado con exito");
               },
     
               error: function(){
                 window.location.href = "./sol_error.html";
-                console.log("Ha ocurrido un error al ingresar la solicitud");
               }
             });
           },
@@ -189,34 +100,4 @@ $("#solicitudForm").submit(function(e) {
   });
   return false;
 });
-
-/*$.ajax({
-  url: 'https://api.opencagedata.com/geocode/v1/json',
-  method: 'GET',
-  data: {
-    'key': '4b3b81ad4a894e0199e670f36dc478c7',
-    'q': latitud + ',' + longitud
-  },
-  dataType: 'json',
-  success: function(respuesta){
-    var direccion = response.results[0].formatted;
-    console.log(direccion);
-  }
-});*/
-
-
-/*$.ajax({
-  type: "GET",
-  url: "https://nogal.herokuapp.com/obtenerUser/"+window.localStorage.getItem("token"),
-  contentType: "application/json",
-  dataType: 'json',
-  cache: false,
-  success: function(user_cliente) {
-      console.log(user_cliente);
-  },
-
-  error: function(){
-      console.log("Ha ocurrido un error");
-  }
-});*/
 
