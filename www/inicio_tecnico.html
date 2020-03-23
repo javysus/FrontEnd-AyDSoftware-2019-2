@@ -15,6 +15,20 @@
                 <div class="col">
                     <nav class="navbar navbar-expand-lg navbar-light bg-light">
                         <a class="navbar-brand" href="#">Nogal</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                          </button>
+                        
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                              <li class="nav-item active">
+                                <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+                              </li>
+                            </ul>
+
+                            <a class="navbar-brand" id="nombreUsuario">
+                                <img src="./img/user_icon.png" style="width:20px;height:20px;"> </a>
+                        </div>
                         
                     </nav>
                 </div>
@@ -33,7 +47,7 @@
                 <div class="col"></div>
                 <div class="col">
                     <a class="btn btn-primary btn-lg btn-block mb-2" href="solicitudes_pendientes.html" role="button">Ver solicitudes pendientes
-                        <span class="badge badge-light">4</span>
+                        <span class="badge badge-light" id="nsol"></span>
                     </a>
                 </div>
                 <div class="col"></div>
@@ -45,7 +59,7 @@
     <script type="text/javascript" src = "cordova.js"></script>
     <script type="text/javascript" src = "./js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src = "./js/bootstrap.min.js"></script>
-    <script type="text/javascript" src = "./js/Controllers/inicio_tecnico.js"></script>
+    <script type="text/javascript" src = "./js/Controllers/inicio.js"></script>
 
 </body>
 </html>
