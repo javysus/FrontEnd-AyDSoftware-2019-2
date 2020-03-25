@@ -47,14 +47,11 @@
             <div class="row">
                 <div class="col"></div>
                 <div class="col" id="allSolicitudes">
-                    
-    
-
                         <div class="modal fade bd-example-modal-sm" id="finalizarModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-sm" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">Confirmar</h5>
+                                  <h5 class="modal-title">Confirmar</h5>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
@@ -90,13 +87,49 @@
                                         </div>
                                     </div>
                                 </div>
-                        
 
+                              </div>
                             </div>
                           </div>
 
+                          <div class="modal fade" id="aceptarModal" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
 
-                    </div>
+                                <div class="modal-header">
+                                  <h5 class="modal-title">Aceptar o rechazar propuesta</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+
+                                <div class="modal-body">
+                                  ¿Acepta llevar a cabo la solicitud según el precio y fecha propuesto por el administrador? Considere que si rechaza el precio, <strong>la solicitud termina</strong>,
+                                  sin embargo si sólo rechaza la fecha, <strong>la solicitud será enviada nuevamente al administrador</strong> para que este proponga una nueva fecha.
+                                  
+                                  <form id="aceptarForm">
+                                    <div class="custom-control custom-checkbox">
+                                      <input type="checkbox" class="custom-control-input" id="precio">
+                                      <label class="custom-control-label" for="precio">Precio</label>
+                                    </div>
+                          
+                                    <div class="custom-control custom-checkbox">
+                                      <input type="checkbox" class="custom-control-input" id="fecha" disabled>
+                                      <label class="custom-control-label" for="fecha">Fecha</label>
+                                    </div>
+                                  </form>
+                                </div>
+
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                  <button type="button" class="btn btn-success" data-dismiss="modal" id="enviar">Enviar</button>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+                               
+                    
                 </div>
                 <div class="col"></div>
         </div>

@@ -8,9 +8,7 @@
     <title>Nogal | Solicitudes por revisar</title>
 </head>
 <body>
-    <script type="text/javascript" src = "cordova.js"></script>
-    <script type="text/javascript" src = "./js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src = "./js/bootstrap.min.js"></script>
+    
     <script>
      
       $(document).ready(function(){
@@ -26,10 +24,24 @@
           <div class ="row">
             <div class="col"></div>
             <div class="col">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <a class="navbar-brand" href="#">Nogal</a>
-                    
-                </nav>
+              <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand mb-0 h1" href="#">Nogal</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                      <li class="nav-item active">
+                        <a class="nav-link" href="inicio_admin.html">Inicio <span class="sr-only">
+                        </span></a>
+                      </li>
+                    </ul>
+
+                    <a class="navbar-brand" id="nombreUsuario">
+                        <img src="./img/user_icon.png" style="width:20px;height:20px;"> </a>
+                </div>
+            </nav>
             </div>
             <div class="col"></div>
         </div>
@@ -41,9 +53,9 @@
                             Asunto de solicitud
                         </div>
                         <div class="card-body">
-                        <h5 class="card-title">Ubicación</h5>
-                        <h6 class="card-title">Categoría</h5>
-                        <h6 class="card-title">Nombre del cliente</h5>
+                        <h5 class="btn btn-link">Ubicación</h5>
+                        <h6 class="card-title">Categoría</h6>
+                        <h6 class="card-title">Nombre del cliente</h6>
                         <p>
                             <a class="btn btn-dark" data-toggle="collapse" href="#descripcion" role="button" aria-expanded="false" aria-controls="collapseExample">
                             Descripción
@@ -57,12 +69,13 @@
                         <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target=".bd-example-modal-sm">
                             Responder</button> 
                         </div>
+                      </div>
                         
-                        <div class="modal fade bd-example-modal-sm" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                        <div class="modal fade bd-example-modal-sm" id="responderSol" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-sm" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">Responder solicitud</h5>
+                                  <h5 class="modal-title">Responder solicitud</h5>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
@@ -80,9 +93,9 @@
                                           <input class="form-control" type="datetime-local" value="2020-03-27T13:45:00" id="example-datetime-local-input">
                                         </div>
                                     </div>
-                                    
                                  </form>
                                 </div>
+
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                   <button type="button" class="btn btn-success" data-dismiss="modal" id="confirm1">Confirmar</button>
@@ -90,12 +103,39 @@
                               </div>
                             </div>
                           </div>
+
+                          <div class="modal fade" id="verMapa" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+
+                                <div class="modal-header">
+                                  <h5 class="modal-title">Ubicación</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-12 modal_body_map">
+                                            <div class="location-map" id="location-map">
+                                            <div style="width: 350px; height: 400px; position: relative;" id="map"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
                     </div>
                 </div>
                 <div class="col"></div>
 
         </div>
     </section>
-
+    <script type="text/javascript" src = "cordova.js"></script>
+    <script type="text/javascript" src = "./js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src = "./js/bootstrap.min.js"></script>
+    <script type="text/javascript" src = "./js/Controllers/basicos.js"></script>
 </body>
 </html>

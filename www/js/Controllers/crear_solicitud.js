@@ -1,11 +1,11 @@
 var latitud;
 var longitud;
-
+$("#nombreUsuario").prepend(window.localStorage.getItem("username"))
 function initMap() {
 
     map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: -34.397, lng: 150.644},
-    zoom: 6
+    zoom: 10
     });
     infoWindow = new google.maps.InfoWindow;
 

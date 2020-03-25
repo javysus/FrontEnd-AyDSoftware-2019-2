@@ -1,9 +1,23 @@
-$("#registerForm").submit(function(e) {
+$(document).ready(function(){
+
+    $("#userType").change(function(){
+        $(this).find("option:selected").each(function(){
+            var optionValue = $(this).attr("value");
+            if(optionValue=="tecnico"){
+                $("#divEspecialidad").show();
+            } else{
+                $("#divEspecialidad").hide();
+            }
+        });
+        }).change();
+    
+    $("#registerForm").submit(function(e) {
     e.preventDefault();
 
     var rol;
 
     if ($("#userType").val()=='Cliente'){
+        /*Añadir entidad Tecnico*/
         rol = "ROLE_USER";
     }
 
@@ -28,4 +42,5 @@ $("#registerForm").submit(function(e) {
     })
 
     return false;
-})
+    });
+});
