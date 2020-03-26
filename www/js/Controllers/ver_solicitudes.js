@@ -163,7 +163,36 @@ $.ajax({
       lng = respuesta[i].longitud;
       let date = new Date(respuesta[i].fecha);
       initMap(lat, lng);
-      if (!respuesta[i].aceptada_adm){
+      if(respuesta[i].aceptada_precio && !respuesta[i].aceptada_adm){
+        $("#allSolicitudes").append('\
+          <div class="card text-center mb-3" id=sol'+respuesta[i].id+'>\
+          <div class="card-header">\
+              <span class="badge badge-info"$>'+respuesta[i].monto+'</span>\
+              <span class="badge badge-primary">Enviada</span>'+
+              respuesta[i].asunto+
+          '</div>\
+          <div class="card-body">\
+          <p>\
+              <button type="button" class="btn btn-link" data-toggle="modal" data-target="#verMapa" data-lat='+respuesta[i].latitud+' data-lng='+
+              +respuesta[i].longitud+'>'+respuesta[i].direccion+
+              '</button>\
+          </p>\
+          <h6 class="card-title">'+respuesta[i].categoria+'</h6>\
+          <h6 class="card-title" id="userCliente'+respuesta[i].id+'"></h6>\
+          <p>\
+              <a class="btn btn-dark" data-toggle="collapse" href="#descripcion'+respuesta[i].id+'" role="button" aria-expanded="false" aria-controls="collapseExample">\
+              Descripción\
+              </a>\
+              </p>\
+              <div class="collapse" id="descripcion'+respuesta[i].id+'">\
+              <div class="card card-body">'+
+                  respuesta[i].descripcion+
+              '</div>\
+          </div>\
+          </div>\
+          ');
+      }
+      else if (!respuesta[i].aceptada_adm){
         $("#allSolicitudes").append('\
           <div class="card text-center mb-3" id=sol'+respuesta[i].id+'>\
           <div class="card-header">\

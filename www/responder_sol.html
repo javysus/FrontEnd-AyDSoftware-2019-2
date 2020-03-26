@@ -8,17 +8,6 @@
     <title>Nogal | Solicitudes por revisar</title>
 </head>
 <body>
-    
-    <script>
-     
-      $(document).ready(function(){
-
-        $("#confirm1").click(function(){
-          $("#exampleModal").on('hidden.bs.modal', function () {
-            $("#sol1").fadeOut()});
-        });
-      });
-      </script>
     <section id="inicio">
         <div class="container">
           <div class ="row">
@@ -47,7 +36,7 @@
         </div>
             <div class="row">
                 <div class="col"></div>
-                <div class="col">
+                <div class="col" id="allSolicitudes">
                     <div class="card text-center" id="sol1">
                         <div class="card-header">
                             Asunto de solicitud
@@ -84,11 +73,13 @@
                                  <form id="asignar">
                                     <div class="form-group">
                                         <label for="nombre">Precio</label>
+                                        <div class="col">
                                         <input type="number" min="0" value="10000" class="form-control" name="precio">
+                                        </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="example-datetime-local-input">Fecha</label>
+                                        <label for="fecha">Fecha</label>
                                         <div class="col">
                                           <input class="form-control" type="datetime-local" value="2020-03-27T13:45:00" id="example-datetime-local-input">
                                         </div>
@@ -137,5 +128,7 @@
     <script type="text/javascript" src = "./js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src = "./js/bootstrap.min.js"></script>
     <script type="text/javascript" src = "./js/Controllers/basicos.js"></script>
+    <script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNvxj43XfymqOj5lje3GZHc2HoSfo5P_4"></script>
+    <script type="text/javascript" src = "./js/Controllers/responder_sol.js"></script>
 </body>
 </html>

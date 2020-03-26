@@ -16,8 +16,7 @@ $(document).ready(function(){
 
     var rol;
 
-    if ($("#userType").val()=='Cliente'){
-        /*Añadir entidad Tecnico*/
+    if ($("#userType").val()=='cliente'){
         rol = "ROLE_USER";
     }
 
