@@ -2,14 +2,17 @@
 Proyecto para Análisis y Diseño de Software 2019-2
 
 ## Archivos
-A continuación se muestran dos carpetas, una para el BackEnd del proyecto y otra para el FrontEnd. La carpeta para el BackEnd no tiene funcionalidad en este repositorio, debido a que se encuentra ya implementada en la aplicación de Heroku.
+El repositorio actual, frontend, corresponde a lo que se utilizó para construir la plataforma en Android y obtener la APK, la cual se encuentra en este mismo repositorio con el nombre de "Nogal-debug.3897696.11.apk" y un archivo zip NogalApp donde se encuentra los mismo archivos que en este repositorio, pero se utilizó para construir en Adobe Phonegap Build.
 
 ## Requisitos
-Como prototipo, la ejecución se ha realizado directamente en el navegador, en nuestro caso con Chrome, y para evitar errores de CORS, abrimos nuestro navegador ejecutando lo siguiente 
-"chrome.exe --user-data-dir="C://Chrome dev session" --disable-web-security"
+- Emulador de Android de Android Studio
+- Geolocalización activada
 
 ## Ejecución
 
-1. Ir a la carpeta /Nogal-FrontEnd/www 
-2. Abrir index.html con el navegador
-3. Interactuar con las historias de usuario implementadas 
+1. Obtener la apk de este repositorio
+2. Abrir el emulador de Android
+3. Arrastrar la apk al emulador
+4. De esta forma, se instala la aplicación en el dispositivo
+5. Asegurarnos de que la geolocalización este activa en el emulador
+6. Abrir la aplicación

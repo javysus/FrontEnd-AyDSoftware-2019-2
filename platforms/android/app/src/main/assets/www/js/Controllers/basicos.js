@@ -1,0 +1,1 @@
+$("#nombreUsuario").prepend(window.localStorage.getItem("username"))

@@ -5,6 +5,11 @@ $(document).ready(function(){
     var monto;
     var fecha;
 
+    $('#verMapa').on('show.bs.modal', function(event) {
+      var button = $(event.relatedTarget);
+      initMap(button.data('lat'), button.data('lng'));
+    });
+
     $("#precio").click(function(){
         if (this.checked) {
           $("#fecha").removeAttr("disabled");
@@ -46,17 +51,13 @@ $(document).ready(function(){
     });
 
     $("#enviar").click(function(){
-      console.log(id_sol);
-      console.log(monto);
-      console.log(fecha);
       $("#aceptarModal").on('hidden.bs.modal', function () {
-        console.log($('#precio').is(':checked'));
-        if($('#precio').is(':checked') && $('#fecha').is(':checked')){
+        if($('#precio').is(':checked') && $('#fecha').is(':checked')){ /*Precio y fecha fueron aceptados*/
           $.ajax({
             type: "PUT",
             headers: {'Authorization': 'Bearer ' + window.localStorage.getItem("token")},
             url: "https://nogal.herokuapp.com/actualizarsolicitud",
-            data: JSON.stringify({id: id_sol, aceptada_tec: false, aceptada_precio: true, aceptada_fecha: true, aceptada_adm: true, fecha: fecha,
+            data: JSON.stringify({id: id_sol, aceptada_cli: true, aceptada_fecha: true, aceptada_adm: true, fecha: fecha,
               monto: monto}),
             contentType: "application/json",
             dataType: "json",
@@ -71,13 +72,12 @@ $(document).ready(function(){
             
           });
         }
-        else if($('#precio').is(':checked') && !$('#fecha').is(':checked')){
+        else if($('#precio').is(':checked') && !$('#fecha').is(':checked')){ /*Precio fue aceptado pero no fecha*/
           $.ajax({
             type: "PUT",
             headers: {'Authorization': 'Bearer ' + window.localStorage.getItem("token")},
             url: "https://nogal.herokuapp.com/actualizarsolicitud",
-            data: JSON.stringify({id: id_sol, aceptada_tec: false, aceptada_precio: true, aceptada_fecha: false, aceptada_adm: false,
-              monto: monto}),
+            data: JSON.stringify({id: id_sol, aceptada_adm: false, aceptada_cli: true, monto: monto}),
             contentType: "application/json",
             dataType: "json",
             cache: false,
@@ -92,7 +92,7 @@ $(document).ready(function(){
           });
         }
 
-        else{
+        else{ /*Solicitud rechazada*/
           $.ajax({
             type: "DELETE",
             headers: {'Authorization': 'Bearer ' + window.localStorage.getItem("token")},
@@ -110,7 +110,59 @@ $(document).ready(function(){
           });
         }
       });
-    })
+    });
+    
+    $("#aceptarFechaModal").on('show.bs.modal', function(event){
+      var button = $(event.relatedTarget);
+      id_sol = button.data('id');
+      monto = button.data('precio');
+      fecha = button.data('fecha');    
+    });
+
+    $("#aceptar").click(function(){
+      $("#aceptarFechaModal").on('hidden.bs.modal', function () {
+        $.ajax({
+          type: "PUT",
+          headers: {'Authorization': 'Bearer ' + window.localStorage.getItem("token")},
+          url: "https://nogal.herokuapp.com/actualizarsolicitud",
+          data: JSON.stringify({id: id_sol, aceptada_cli: true, aceptada_fecha: true, aceptada_adm: true, fecha: fecha,
+            monto: monto}),
+          contentType: "application/json",
+          dataType: "json",
+          cache: false,
+          success: function(){
+            $("#sol"+id_sol).fadeOut();
+          },
+
+          error: function(){
+            console.log('Ha ocurrido un error');
+          }
+ 
+        });
+      });
+    });
+
+      $("#rechazar").click(function(){
+        $("#aceptarFechaModal").on('hidden.bs.modal', function () {
+          $.ajax({
+            type: "PUT",
+            headers: {'Authorization': 'Bearer ' + window.localStorage.getItem("token")},
+            url: "https://nogal.herokuapp.com/actualizarsolicitud",
+            data: JSON.stringify({id: id_sol, aceptada_cli: true, aceptada_adm: false, monto: monto}),
+            contentType: "application/json",
+            dataType: "json",
+            cache: false,
+            success: function(){
+              $("#sol"+id_sol).fadeOut();
+            },
+  
+            error: function(){
+              console.log('Ha ocurrido un error');
+            }
+   
+          });
+        });
+      });
   });
 
 
@@ -159,15 +211,15 @@ $.ajax({
   success: function(respuesta) {
     for (var i = respuesta.length - 1; i >= 0; i--){
       console.log(respuesta[i]);
+      console.log(!respuesta[i].aceptadaAdm);
       lat = respuesta[i].latitud;
       lng = respuesta[i].longitud;
       let date = new Date(respuesta[i].fecha);
-      initMap(lat, lng);
-      if(respuesta[i].aceptada_precio && !respuesta[i].aceptada_adm){
+      if(!respuesta[i].aceptada_fecha && respuesta[i].aceptada_cli && !respuesta[i].aceptadaAdm){ /*Caso donde solo se acepto el precio, pero no la fecha. Enviada a administrador*/
         $("#allSolicitudes").append('\
           <div class="card text-center mb-3" id=sol'+respuesta[i].id+'>\
           <div class="card-header">\
-              <span class="badge badge-info"$>'+respuesta[i].monto+'</span>\
+              <span class="badge badge-info">$'+respuesta[i].monto+'</span>\
               <span class="badge badge-primary">Enviada</span>'+
               respuesta[i].asunto+
           '</div>\
@@ -192,7 +244,7 @@ $.ajax({
           </div>\
           ');
       }
-      else if (!respuesta[i].aceptada_adm){
+      else if (!respuesta[i].aceptadaAdm){ /*Caso en que se espera primera respuesta de administrador*/
         $("#allSolicitudes").append('\
           <div class="card text-center mb-3" id=sol'+respuesta[i].id+'>\
           <div class="card-header">\
@@ -220,11 +272,11 @@ $.ajax({
           </div>\
           ');
       }
-      else if(respuesta[i].aceptada_tec){
+      else if(respuesta[i].aceptada_tec){ /*Caso en que tecnico confirmo realizacion*/
         $("#allSolicitudes").append('\
           <div class="card text-center mb-3" id=sol'+respuesta[i].id+'>\
           <div class="card-header">\
-              <span class="badge badge-info"$>'+respuesta[i].monto+'</span>'+
+              <span class="badge badge-info">$'+respuesta[i].monto+'</span>'+
               respuesta[i].asunto+
           '</div>\
           <div class="card-body">\
@@ -252,7 +304,70 @@ $.ajax({
           ');
           getUsername(respuesta[i].tecnico, respuesta[i].id);
       }
-      else if (respuesta[i].aceptada_adm){ 
+      else if (respuesta[i].aceptadaAdm && respuesta[i].aceptada_fecha){ /*Caso en que solo queda esperar realizacion de tecnico*/
+        $("#allSolicitudes").append('\
+          <div class="card text-center mb-3" id=sol'+respuesta[i].id+'>\
+          <div class="card-header">\
+              <span class="badge badge-info">$'+respuesta[i].monto+'</span>'+
+              respuesta[i].asunto+
+          '</div>\
+          <div class="card-body">\
+          <h5 class="card-title">'+date+'</h5>\
+          <p>\
+              <button type="button" class="btn btn-link" data-toggle="modal" data-target="#verMapa" data-lat='+respuesta[i].latitud+' data-lng='+
+              +respuesta[i].longitud+'>'+respuesta[i].direccion+
+              '</button>\
+          </p>\
+          <h6 class="card-title">'+respuesta[i].categoria+'</h6>\
+          <h6 class="card-title" id="userCliente'+respuesta[i].id+'"></h6>\
+          <p>\
+              <a class="btn btn-dark" data-toggle="collapse" href="#descripcion'+respuesta[i].id+'" role="button" aria-expanded="false" aria-controls="collapseExample">\
+              Descripción\
+              </a>\
+              </p>\
+              <div class="collapse" id="descripcion'+respuesta[i].id+'">\
+              <div class="card card-body">'+
+                  respuesta[i].descripcion+
+              '</div>\
+          </div>\
+          </div>\
+          ');
+          getUsername(respuesta[i].tecnico, respuesta[i].id);
+      }
+      else if(respuesta[i].aceptadaAdm && respuesta[i].aceptada_cli &&!respuesta[i].aceptada_fecha){ /*Caso en el que solo queda aceptar o rechazar fecha*/
+        $("#allSolicitudes").append('\
+          <div class="card text-center mb-3" id=sol'+respuesta[i].id+'>\
+          <div class="card-header">\
+              <span class="badge badge-warning">En espera de aceptar fecha</span>\
+              <span class="badge badge-info">$'+respuesta[i].monto+'</span>'+
+              respuesta[i].asunto+
+          '</div>\
+          <div class="card-body">\
+          <h5 class="card-title">'+date+'</h5>\
+          <p>\
+              <button type="button" class="btn btn-link" data-toggle="modal" data-target="#verMapa" data-lat='+respuesta[i].latitud+' data-lng='+
+              +respuesta[i].longitud+'>'+respuesta[i].direccion+
+              '</button>\
+          </p>\
+          <h6 class="card-title">'+respuesta[i].categoria+'</h6>\
+          <h6 class="card-title" id="userCliente'+respuesta[i].id+'"></h6>\
+          <p>\
+              <a class="btn btn-dark" data-toggle="collapse" href="#descripcion'+respuesta[i].id+'" role="button" aria-expanded="false" aria-controls="collapseExample">\
+              Descripción\
+              </a>\
+              </p>\
+              <div class="collapse" id="descripcion'+respuesta[i].id+'">\
+              <div class="card card-body">'+
+                  respuesta[i].descripcion+
+              '</div>\
+          </div>\
+          <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#aceptarFechaModal" data-id='+respuesta[i].id+
+          ' data-precio='+respuesta[i].monto+' data-fecha='+respuesta[i].fecha+' >\
+              Responder solicitud</button>\
+          </div>\
+          ');
+      }
+      else if (respuesta[i].aceptadaAdm){ /*Caso en el que administrador respondio la solicitud*/
         $("#allSolicitudes").append('\
           <div class="card text-center mb-3" id=sol'+respuesta[i].id+'>\
           <div class="card-header">\
